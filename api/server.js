@@ -22,6 +22,11 @@ server.get('/api/users', (req, res) => {
 server.get('/api/users/:id', (req, res) => {
 User.findById(req.params.id)
     .then(users => {
+        if(!users) {
+            res.status(404).json({
+                message: 'the user with the specified ID does not exist'
+            })
+        }
       res.json(users)
     })
     .catch(err => {
